@@ -21,6 +21,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile 'junit:junit:4.+'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile files('/home/erik/AndroidStudioProjects/Inspectr/libs/gson-2.3.1.jar')
     compile files('/home/erik/AndroidStudioProjects/Inspectr/libs/sugar-1.4_beta.jar')
