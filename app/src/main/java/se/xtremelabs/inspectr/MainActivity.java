@@ -38,19 +38,19 @@ public class MainActivity extends ActionBarActivity {
 
         View.OnClickListener handler_startinspection = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for continueLastInspection");
+                Log.d(CLASSTAG, "Button press for handler_startinspection pressed");
             }
         };
 
         View.OnClickListener handler_manageinspections  = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for handlerNewInspection  pressed.");
+                Log.d(CLASSTAG, "Button press for handler_manageinspections  pressed.");
             }
         };
 
         View.OnClickListener handler_setactiveproject = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for handlerManageProjects pressed.");
+                Log.d(CLASSTAG, "Button press for handler_setactiveproject pressed.");
                // Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
                // startActivity(i);
             }
@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
 
         View.OnClickListener handler_settings = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for Settings pressed.");
+                Log.d(CLASSTAG, "Button press for handler_settings pressed.");
                // Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
                // startActivity(i);
             }
@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 
         View.OnClickListener handler_debug1 = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for Debug1 pressed.");
+                Log.d(CLASSTAG, "Button press for handler_debug1 pressed.");
                 List<Project> projects = Project.listAll(Project.class);
 
                 Gson gson = new Gson();
