@@ -84,17 +84,17 @@ public class RemoteObjectsService extends IntentService {
      * parameters.
      */
     private void handleActionFetchProjects(String param1, String param2) {
-        // TODO: Handle action Foo
         List<Project> projects = Project.listAll(Project.class);
         Log.i(CLASSTAG, String.format("Num projects: %s", projects.size()) );
-        // throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
      * Handle action FetchClients in the provided background thread with the provided
      * parameters.
+     *
      */
     private void handleActionFetchClients(String param1, String param2) {
+
         Client c1 = new Client();
         c1.name = "Client1";
         c1.email = "chuck1@foobar.com";
@@ -115,16 +115,17 @@ public class RemoteObjectsService extends IntentService {
 
         Iterator<Client> iterator = clients.iterator();
         while (iterator.hasNext()) {
-            String n = iterator.next().name;
-            Log.i(CLASSTAG, String.format("Name: %s", n));
-
+            Client c = iterator.next();
+            String n = c.name;
             if ( Client.find(Client.class, "name = ?", n).size() > 0 ) {
-                Log.i(CLASSTAG, String.format("Client %s already in database. Will not add it.", n));
+                Log.i(CLASSTAG,
+                        String.format("Client %s already in database.", n));
             } else {
-                Log.i(CLASSTAG, String.format("Client %s new, should go into database. Will add it.", n));
+                Log.i(CLASSTAG,
+                        String.format("Adding new Client %s to database.", n));
+                c.save();
             }
 
         }
-        // throw new UnsupportedOperationException("Not yet implemented");
     }
 }
