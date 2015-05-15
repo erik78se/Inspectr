@@ -1,6 +1,7 @@
 package se.xtremelabs.inspectr;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,12 +22,11 @@ import se.xtremelabs.models.Project;
 
 public class MainActivity extends ActionBarActivity {
     private final String CLASSTAG = getClass().getSimpleName();
+    private final String SHARED_PREFS_NAME = "se.xtremelabs.inspectr";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setupDummyDatabase();
 
         setContentView(R.layout.activity_main);
         Button b1 = (Button) findViewById(R.id.button_startinspection);
@@ -35,22 +35,34 @@ public class MainActivity extends ActionBarActivity {
         Button b4 = (Button) findViewById(R.id.button_settings);
         Button b5 = (Button) findViewById(R.id.button_debug1);
 
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+
+        //App preference keeps the id of the active project
+        String currP = prefs.getString("ACTIVE_PROJECT", null);
+
+        if ( currP != null ) {
+            Log.i(CLASSTAG, String.format("Current project id: %s ", currP));
+        } else {
+            Log.i(CLASSTAG, "No active project in preferences.");
+        }
+
 
         View.OnClickListener handler_startinspection = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for handler_startinspection pressed");
+                Log.i(CLASSTAG, "Button press for handler_startinspection pressed");
             }
         };
 
         View.OnClickListener handler_manageinspections  = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for handler_manageinspections  pressed.");
+                Log.i(CLASSTAG, "Button press for handler_manageinspections  pressed.");
             }
         };
 
         View.OnClickListener handler_setactiveproject = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for handler_setactiveproject pressed.");
+                Log.i(CLASSTAG, "Button press for handler_setactiveproject pressed.");
+                Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_SHORT).show();
                // Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
                // startActivity(i);
             }
@@ -58,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
 
         View.OnClickListener handler_settings = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for handler_settings pressed.");
+                Log.i(CLASSTAG, "Button press for handler_settings pressed.");
                // Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
                // startActivity(i);
             }
@@ -66,12 +78,13 @@ public class MainActivity extends ActionBarActivity {
 
         View.OnClickListener handler_debug1 = new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(CLASSTAG, "Button press for handler_debug1 pressed.");
-                List<Project> projects = Project.listAll(Project.class);
+                Log.i(CLASSTAG, "Button press for handler_debug1 pressed.");
+                RemoteObjectsService.startActionFetchClients(getApplicationContext(), "", "");
+                // List<Project> projects = Project.listAll(Project.class);
 
-                Gson gson = new Gson();
-                String project_json = gson.toJson( projects.get(0) );
-                Log.d(CLASSTAG, project_json);
+                // Gson gson = new Gson();
+                // String project_json = gson.toJson( projects.get(0) );
+                // Log.d(CLASSTAG, project_json);
                 // Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
                 // startActivity(i);
             }
@@ -89,44 +102,4 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
-    public void setupDummyDatabase() {
-        Project p = new Project();
-        Client c = new Client();
-        c.name = "Chuck the Client";
-        c.email = "chuck@foobar.com";
-        c.telephone_number = "1234";
-        p.name = "DummyProject";
-        p.client = c;
-        p.address = "Dummy Address";
-        c.save();
-        p.save();
-    }
-
-    /**
-     *
-     * CODE BELOW HERE IS NOT USED
-     *
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
