@@ -20,6 +20,11 @@ import se.xtremelabs.models.Client;
 import se.xtremelabs.models.Project;
 
 
+
+//#TODO: Account to OC: http://www.finalconcept.com.au/article/view/android-account-manager-step-by-step
+//#TODO: http://www.finalconcept.com.au/article/view/android-account-manager-step-by-step-2
+
+
 public class MainActivity extends ActionBarActivity {
     private final String CLASSTAG = getClass().getSimpleName();
     private final String SHARED_PREFS_NAME = "se.xtremelabs.inspectr";

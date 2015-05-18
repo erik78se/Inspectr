@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="se.xtremelabs.inspectr" >
-
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"></uses-permission>
     <application
+
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,6 +36,24 @@
             android:name=".RemoteObjectsService"
             android:exported="false" >
         </service>
+        <service
+            android:name=".authentication.AuthenticationService"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" >
+            </meta-data>
+        </service>
+
+        <activity
+            android:name=".authentication.AuthenticationActivity"
+            android:label="@string/title_activity_authentication" >
+        </activity>
     </application>
 
 </manifest>
